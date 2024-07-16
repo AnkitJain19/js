@@ -1,0 +1,92 @@
+import React, { useState,useReducer,useEffect } from "react"
+import axios from "axios";
+
+// function App() {
+//   const [counter,setCounter]=useState(0);
+//   const increment = () => {
+//   setCounter(counter+1);
+//   console.log(counter);
+//   }
+//   return (
+//     <div className="app">
+//   {counter}<button onClick={increment}>Increment</button>
+//    </div>
+//   )
+// }
+  // const [value1, setValue]= useState("hello");
+  // let change=(e)=>{
+  //   const newvalue= e.target.value;
+  //   setValue(newvalue);
+  // }
+  // return(
+  //   <>
+  //     <input placeholder="enter something" onChange={change}></input>
+  //     {value1}
+  //   </>
+  // )
+//useState
+/*
+
+  const [count, setCount]= useState(0);
+  const [value, setValue]=useState(true);
+
+         return (
+      <>
+      Counter:<button onClick={()=>{
+        setCount(count+1);
+        setValue(!value)
+      }}>click</button> {count}
+      {value && <p>hello world</p>}
+      </>
+    )
+}
+
+*/
+/*
+//instead of having multiple setState we have one usereducer
+
+const reducer=(state,action)=>{
+  switch(action.type){
+    case "increment":return {count:state.count+1,value:state.value};
+    case "setValue": return{
+      count:state.count,value:!state.value
+    };
+    default: return state;
+  }
+}
+function App(){
+  //dispatch is used for change value of state variable.
+  //state is used to store the information of all the state
+  const [state,dispatch]=useReducer(reducer,{count:0,value:true});//reducer function, initial value of state
+
+         return (
+      <>
+      Counter:<h1>{state.count}</h1>
+      <button onClick={()=>{
+      dispatch({type:"setValue"});
+      dispatch({type:"increment"});
+      }}>click</button>
+      {state.value && <p>hello world</p>}
+      </>
+    )
+}
+*/
+function App(){
+//whenever it is called the state is changes ,when we rendered page 
+//if we want call useeffect once ,you should used []
+// 
+// const [data, setData]=useState("");
+// const [count, setCount]=useState(0);
+// useEffect(()=>{
+//   axios.get("https://jsonplaceholder.typicode.com/comments").then((res)=>{console.log("hello");
+// setData(res.data[34].email);},[count]).catch((err)=>console.log(err));})
+// //[count]-it will rendered the page every time when we click on the button
+// //[]-it will only once it will not affect the page is rendered or not
+//   return(
+//     <>
+//     counter:{count}
+//     <button onClick={()=>setCount(count+1)}>click</button>
+//   {data}
+//     </>
+//   )
+//}
