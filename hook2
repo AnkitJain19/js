@@ -1,0 +1,122 @@
+import React,{useRef, useLayoutEffect, useState, createContext} from "react";
+import { useEffect } from "react";
+import Button from "./Button";
+import Login from "./Login";
+import User from "./User";
+
+// //useRef-when we available to click button it will focused on the input button
+// //you access the element with the help of useRef in js we have dne with document.getElementByID
+
+// function App(){
+//   //passin g the value
+// const inputref=useRef(null);
+// const onClick=()=>{
+//   console.log(inputref.current.value);
+//   inputref.current.focus();// we need to ref the current value reference. if we want to access the function we use the inputref.current
+//   inputref.current.value="";
+//   //after the clicking the button text appear input box will be disappear.
+// }
+//   return(
+//     <div>
+//         <h1>Pedro</h1>
+//         <input type="text" placeholder="enter ..." ref={inputref}/>
+//         <button onClick={onClick}>Submit</button>
+//     </div>
+//   );
+// }
+
+// function App(){
+// //useEffect is called after you rendered the page.shown to the users
+// //useLayoutEffect is called before you rendered the page.
+// const inputref=useRef(null);
+// useLayoutEffect(()=>{
+//     console.log(inputref.current.value);
+// },[])
+// useEffect(()=>{
+//     inputref.current.value="hello";
+// },[])
+//     return(
+//         <div>
+//     <input ref={inputref} value="pedro" />
+//         </div>
+//     )
+// }
+// function App(props){
+//     const buttonRef =useRef(null);
+//         return(
+//         <div>
+//       <button onClick={()=>{buttonRef.current.alterToggle();}}>Button from parent</button>
+//         <Button ref={buttonRef}  />
+//         </div>
+//     )
+// }
+import React,{useRef, useLayoutEffect, useState, forwardRef, useImperativeHandle} from "react";
+import { useEffect } from "react";
+
+const Button=forwardRef((props,ref)=>{
+    const [toggle ,setToggle]=useState(false);
+    useImperativeHandle(ref,()=>({
+        alterToggle(){
+            setToggle(!toggle);
+        }
+    }))
+    return(
+        <div>
+            <button>Button from child</button>
+            {toggle && <span>TOGGLE</span>}
+        </div>
+    )
+})
+export default Button
+//useContext
+
+export const AppContext=createContext(null);
+function App(){
+  //in useContext don't require props. we can able to access all the context state in all the component inside the  app component without use the props.
+  //createCONTEXT 
+
+  //it is collection of state information inside the appcontext.provider
+  const [username,setUsername]=useState("");
+  return (
+    <div>
+    {/* //If we want to access the data fastly you can use context without using the props */}
+    <AppContext.Provider value={{username,setUsername}}>
+    <Login />
+    <User />
+    </AppContext.Provider>
+
+    </div>
+  )
+}
+export default App
+import React from "react";
+import { useContext } from "react";
+import {AppContext} from "./App";
+function Login(){
+    const {username, setUsername} = useContext(AppContext)
+  
+    return(
+        <div>
+            <input onChange={(e)=>{setUsername(e.target.value)}}/>
+        </div>
+    )
+}
+export default Login;
+import { useContext } from "react";
+import React from "react";
+import {AppContext} from "./App";
+
+
+function User(){
+    //value from the useContext and access from the appcontext 
+    const {username, setusername} = useContext(AppContext)
+  
+    return(
+        <div>
+            <h1>
+                User:{username}
+            </h1>
+        </div>
+    )
+}
+export default User;
